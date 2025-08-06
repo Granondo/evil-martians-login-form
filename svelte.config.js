@@ -1,11 +1,15 @@
 import adapter from '@sveltejs/adapter-static';
 
-export default {
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
   kit: {
     adapter: adapter({
-      pages: 'build',
-      assets: 'build',
       fallback: null
     }),
+    paths: {
+      base: process.env.NODE_ENV === 'development' ? '' : (process.env.BASE_PATH ?? '')
+    }
   }
 };
+
+export default config;
