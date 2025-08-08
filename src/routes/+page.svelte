@@ -41,19 +41,19 @@
 	{/if}
 
 	<input
-		id="email"
 		type="email"
 		placeholder="Email"
 		bind:value={email}
+		autocomplete="email"
 		required
 		aria-required="true"
 	/>
 
 	<input
-		id="password"
 		type="password"
 		placeholder="Password"
 		bind:value={password}
+		autocomplete="current-password"
 		required
 		aria-required="true"
 		aria-describedby="toggle-password-visibility"
