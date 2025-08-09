@@ -18,7 +18,7 @@
 		}
 
 		if (!acceptedTerms) {
-			// errorMessage = 'You must accept Terms of Service and Privacy Policy.';
+			errorMessage = 'You must accept Terms of Service and Privacy Policy.';
 			isLoading = false;
 			return;
 		}
@@ -34,11 +34,14 @@
 </script>
 
 <form class="login-form" on:submit|preventDefault={handleSubmit} aria-labelledby="login-form-title">
-	<h2 id="login-form-title">Log in</h2>
+	
+    <h2 id="login-form-title">Log in</h2>
 
-	{#if errorMessage}
-		<div role="alert" aria-live="polite" class="error-message">{errorMessage}</div>
-	{/if}
+    <div class="error-slot" aria-live="polite">
+        {#if errorMessage}
+            <div class="error-message" role="alert">{errorMessage}</div>
+        {/if}
+    </div>
 
 	<input
 		type="email"
@@ -88,11 +91,12 @@
 </form>
 
 <style>
-	:root {
+    :root {
 		--primary-color: #6c63ff;
 		--secondary-color: #5848c2;
 		--error-color: #d9534f;
 		--background-gradient: linear-gradient(135deg, #293498, #40109c, #272d64);
+        --error-block-height: clamp(2rem, 1.5rem + 0.5vw, 2.5rem);
 	}
 
 	.login-form {
@@ -158,11 +162,18 @@
 		text-decoration: none;
 	}
 
-	.error-message {
-		margin-bottom: 1rem;
-		color: var(--error-color);
-		font-weight: 600;
-	}
+    .error-slot {
+        height: var(--error-block-height);
+        display: flex;
+        align-items: center;
+        /* margin: 0 0 1rem 0; */
+    }
+
+    .error-message {
+		font-size: 13px;
+        width: 100%;
+        color: var(--error-color);
+    }
 
 	button {
 		width: 100%;
