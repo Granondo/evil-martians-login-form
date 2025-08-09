@@ -33,7 +33,7 @@
 	// }
 </script>
 
-<form class="login-form" on:submit|preventDefault={handleSubmit} aria-labelledby="login-form-title">
+<form class="login-form" on:submit|preventDefault={handleSubmit} aria-labelledby="login-form-title" novalidate>
 	
     <h2 id="login-form-title">Log in</h2>
 
