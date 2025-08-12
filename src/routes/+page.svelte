@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { Fireworks } from '@fireworks-js/svelte';
+	import type { FireworksOptions } from '@fireworks-js/svelte';
 	let email = '';
 	let password = '';
 	let acceptedTerms = false;
@@ -6,6 +8,58 @@
 	let errorMessage = '';
 	let isLoading = false;
 	let formSubmitted = false;
+
+	let fw: Fireworks;
+
+	let fireworksOptions: FireworksOptions = {
+		autoresize: true,
+		opacity: 0.5,
+		acceleration: 1.05,
+		friction: 0.95,
+		gravity: 1.5,
+		particles: 50,
+		traceLength: 3,
+		traceSpeed: 10,
+		explosion: 5,
+		intensity: 30,
+		flickering: 50,
+		lineStyle: 'round',
+		hue: {
+			min: 0,
+			max: 360
+		},
+		delay: {
+			min: 30,
+			max: 60
+		},
+		rocketsPoint: {
+			min: 50,
+			max: 50
+		},
+		lineWidth: {
+			explosion: {
+				min: 1,
+				max: 3
+			},
+			trace: {
+				min: 1,
+				max: 2
+			}
+		},
+		brightness: {
+			min: 50,
+			max: 80
+		},
+		decay: {
+			min: 0.015,
+			max: 0.03
+		},
+		mouse: {
+			click: false,
+			move: false,
+			max: 1
+		}
+	};
 
 	async function handleSubmit() {
 		formSubmitted = true;
@@ -25,7 +79,11 @@
 
 		await new Promise((r) => setTimeout(r, 2000));
 		isLoading = false;
-		alert(`Email: ${email}\nPassword: ${password}`);
+		const fireworks = fw.fireworksInstance();
+		if (!fireworks.isRunning) {
+			fireworks.start();
+			setTimeout(() => fireworks.stop(), 10000);
+		}
 	}
 
 	function togglePasswordVisibility() {
@@ -143,6 +201,8 @@
 	<button type="button" class="sign-up">Sign up</button>
 </form>
 
+<Fireworks bind:this={fw} autostart={false} options={fireworksOptions} class="fireworks" />
+
 <style>
 	:root {
 		box-sizing: border-box;
@@ -154,6 +214,7 @@
 	}
 
 	.login-form {
+		position: relative;
 		max-width: 380px;
 		margin: 2rem auto;
 		padding: 2rem;
@@ -163,6 +224,17 @@
 		border: 1px solid #ddd;
 		font-family: Arial, sans-serif;
 		color: #fff;
+		z-index: 10;
+	}
+
+	:global(.fireworks) {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		pointer-events: none;
+		z-index: 9999; /* выше формы */
 	}
 
 	h2 {
@@ -235,7 +307,7 @@
 	.checkbox-group {
 		margin-bottom: 1.2rem;
 		font-size: 0.7rem;
-		color: #555;
+		color: #8f8e8e;
 		display: flex;
 		align-items: center;
 	}
@@ -303,6 +375,7 @@
 	.sign-up:hover {
 		color: white;
 		background: var(--secondary-color);
+		border: 2px solid var(--secondary-color);
 	}
 
 	.sign-up:active {
