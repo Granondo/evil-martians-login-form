@@ -179,6 +179,7 @@
 			By creating an account, I agree to Outpoll's
 			<a
 				href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+				class="links"
 				class:invalid={formSubmitted && !acceptedTerms}
 				aria-label="Terms of Service"
 			>
@@ -187,6 +188,7 @@
 			and
 			<a
 				href="https://www.youtube.com/watch?v=AvJCqBqQVSM"
+				class="links"
 				class:invalid={formSubmitted && !acceptedTerms}
 				aria-label="Privacy Policy"
 			>
@@ -204,6 +206,7 @@
 <Fireworks bind:this={fw} autostart={false} options={fireworksOptions} class="fireworks" />
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 	:root {
 		box-sizing: border-box;
 		--primary-color: #6c63ff;
@@ -222,7 +225,18 @@
 		background: var(--background-gradient);
 		box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 		border: 1px solid #ddd;
-		font-family: Arial, sans-serif;
+		font-family:
+			'Inter',
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			Roboto,
+			Oxygen,
+			Ubuntu,
+			Cantarell,
+			'Open Sans',
+			'Helvetica Neue',
+			sans-serif;
 		color: #fff;
 		z-index: 10;
 	}
@@ -324,8 +338,15 @@
 	}
 
 	.links {
-		color: #5a67d8;
-		text-decoration: none;
+		color: #7f9cf5;
+		text-decoration: underline;
+		transition: color 0.2s ease;
+	}
+
+	.links:hover,
+	.links a:focus {
+		color: #63b3ed;
+		outline: none;
 	}
 
 	.error-slot {
